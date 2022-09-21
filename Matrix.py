@@ -23,6 +23,13 @@ class Matrix:
                 print(self.__items__[i][j], end=' ')
             print()
             
+    def fill(self):
+        print('Введите элементы матрицы построчно, каждый элемент с новой строки: ')
+        for i in range(1, self.rw + 1):
+            for j in range(1, self.cl + 1):
+                x = int(input())
+                self.__items__[i][j] = x
+            
     def copy(self):
         cp = Matrix(self.rw, self.cl)
         for i in range(1, cp.rw + 1):
@@ -74,6 +81,7 @@ class Matrix:
     def solve(self, b):
         res = []
         det = self.det()
+        if det == 0: return "det A == 0, can't be solved"
         for i in range(1, self.rw + 1):
             d = self.copy()
             for j in range(1, self.cl + 1):
@@ -85,4 +93,3 @@ class Matrix:
         for i in range(len(res)):
             rs += f'x{i + 1} = {res[i]} '
         return rs[:-1:]
-            
