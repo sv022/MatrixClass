@@ -12,6 +12,8 @@ Class that implements simple methods of working with matrixes
   
   >__A.copy()__  -->  creates a copy of matrix _A_
   
+  >__A.fill()__  -->  allows you to fill the matrix with keyboard input, accepts n*m elements, where n, m - dimensions of the matrix. Elements should be inputed in lines, line by line from i = 1 to i = n.
+  
  ### methods for calculus
  
  >__A.det()__  -->  return an _int_ value of _det A_
