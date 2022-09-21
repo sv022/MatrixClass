@@ -23,3 +23,16 @@ Class that implements simple methods of working with matrixes
  >__A.ad(i, j)__  -->  returns a cofactor (algebraic addition) of the element A<sub>ij</sub>
  
  >__A.solve(list : b)__  -->  returns a solution to the linear equation system, where _A_ is a matrix of x coefficients, and _b_ is a __list__ of free components
+ 
+ ## Usage notes 
+ 
+ You can import a python class from different file by adding 
+```
+from <filename> import <classname>
+```
+this will allow you to use the given class within you file without having to copy and paste it.
+
+import line for this particular class:
+```
+from Matrix import Matrix
+```
