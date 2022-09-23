@@ -4,10 +4,7 @@ class Matrix:
         self.cl = c
         self.issquare = (r if r == c else -1)
         if self.issquare == -1 and unitary: raise Exception("Only square matrix can be unitary.")
-        self.__items__ = [ [None for i in range(c + 1)] for j in range(r + 1) ]
-        for i in range(1, r + 1):
-            for j in range(1, c + 1):
-                self.__items__[i][j] = 0
+        self.__items__ = [ [0 for i in range(c + 1)] for j in range(r + 1) ]
         if unitary:
             for i in range(1, r + 1):
                 self.__items__[i][i] = 1
