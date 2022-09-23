@@ -6,13 +6,15 @@ Class that implements simple methods of working with matrixes
 ### general methods
   >__A = Matrix(n, m)__  -->  creates a matrix object, size n x m 
   
-  >__A.insert(value, i, j)__  -->  inserts the _value_ element into i<sub>th</sub> row, j<sub>th</sub> column
+  >__A.insert(value, i, j)__  -->  inserts the `value` element into i<sub>th</sub> row, j<sub>th</sub> column
   
-  >__A.show()__  -->  prints the matrix _A_ onto your screen
+  >__A.show()__  -->  prints the matrix `A` onto your screen
   
-  >__A.copy()__  -->  creates a copy of matrix _A_
+  >__A.copy()__  -->  creates a copy of matrix `A`
   
-  >__A.fill()__  -->  allows you to fill the matrix with keyboard input, accepts n*m elements, where n, m - dimensions of the matrix. Elements should be inputed in lines, line by line from i = 1 to i = n.
+  >__A.fill(a)__  -->  allows you to fill the matrix with an iterable object `a` (List / Tuple), or with keyboard input. For iterables: if the length of the given iterable is bigger than n*m, (n, m - dimensions of the matrix), method will only take first n*m elements of the iterable, dumping the rest of the iterable. Throws in Exception if the lenght of the iterable is less than n*m.
+ 
+!  For keyboard input leave function parameters empty  !
   
  ### methods for calculus
  
@@ -22,7 +24,7 @@ Class that implements simple methods of working with matrixes
  
  >__A.ad(i, j)__  -->  returns a cofactor (algebraic addition) of the element A<sub>ij</sub>
  
- >__A.solve(list : b)__  -->  returns a solution to the linear equation system, where _A_ is a matrix of x coefficients, and _b_ is a __list__ of free components
+ >__A.solve(list : b, (default)raw=False)__  -->  returns a solution to the linear equation system, where `A` is a matrix of x coefficients, and `b` is a __list__ of free components. Set argument `raw` to ***True*** to get results as a list of integers rather than a formatted string.
  
  ## Usage notes 
  
