@@ -4,7 +4,7 @@ Class that implements simple methods of working with matrixes
 ## Class syntax:
 
 ### general methods
-  >__A = Matrix(n, m)__  -->  creates a matrix object, size n x m 
+  >__A = Matrix(n, m, unitary=False)__  -->  creates a matrix object, size n x m. Set `unitary` to ***True*** to get unitary (identity) matrix. If set to ***True***, throws in Exception if the matrix is not square.
   
   >__A.insert(value, i, j)__  -->  inserts the `value` element into i<sub>th</sub> row, j<sub>th</sub> column
   
