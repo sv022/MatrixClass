@@ -12,6 +12,38 @@ class Matrix:
     def __getitem__(self, n):
         return self.__items__[n]
     
+    def __add__(self, obj):
+        if isinstance(obj, Matrix):
+            if self.rw != obj.rw or self.cl != obj.cl: raise Exception('Can only add matrixes of similar sizes.')
+            else:
+                res = Matrix(self.rw, self.cl)
+                for i in range(1, self.rw + 1):
+                    for j in range(1, self.cl + 1):
+                        res[i][j] = self[i][j] + obj[i][j]
+            return res
+        else: raise Exception('Can only add matrix to another matrix.')
+    
+    def __mul__(self, obj):
+        if isinstance(obj, int):
+            res = Matrix(self.rw, self.cl)
+            for i in range(1, self.rw + 1):
+                for j in range(1, self.cl + 1):
+                    res[i][j] = self[i][j] * obj
+            return res
+        elif isinstance(obj, Matrix):
+            if self.rw != obj.cl: raise Exception('Unmatched matrixes dimensions.')
+            res = Matrix(self.rw, obj.cl)
+            t = []
+            for i in range(1, self.rw + 1):
+                for j in range(1, self.rw + 1):
+                    s = 0
+                    for k in range(1, self.cl + 1):
+                        print(i, j, self[i][k] * obj[k][j])
+                        s += self[i][k] * obj[k][j]
+                    res[i][j] = s
+            return res
+        raise TypeError('Can only multiply Matrix by int, or Matrix by Matrix.')
+
     def insert(self, val, r, c):
         self.__items__[r][c] = val
     
@@ -25,7 +57,7 @@ class Matrix:
         try: 
             a = args[0]
             if a and (isinstance(a, list) or isinstance(a, tuple)):
-                if len(a) < self.rw * self.cl: raise Exception('Iterable is too short for this matrix.')
+                if len(a) < self.rw * self.cl: raise BaseException('Iterable is too short for this matrix.')
                 k = 0
                 crow = 1
                 ccol = 1
@@ -39,7 +71,8 @@ class Matrix:
                 return
             elif a:
                 raise BaseException('Can only fill matrix with List / Tuple.')
-        except: pass
+        except IndexError: pass
+        except Exception: return
 
         print('Введите элементы матрицы построчно, каждый элемент с новой строки: ')
         for i in range(1, self.rw + 1):
@@ -53,8 +86,20 @@ class Matrix:
             for j in range(1, cp.cl + 1):
                 cp[i][j] = self[i][j]
         return cp
+    
+    def items(self):
+        for i in range(1, self.rw + 1):
+            for j in range(1, self.cl + 1):
+                yield self[i][j]
 
     # calculations stuff
+    
+    def transpose(self):
+        res = Matrix(self.cl, self.rw)
+        for i in range(1, self.rw + 1):
+            for j in range(1, self.cl + 1):
+                res[j][i] = self[i][j]
+        return res
     
     def min(self, r, c):
         M = Matrix(self.rw - 1, self.cl - 1)
@@ -98,8 +143,7 @@ class Matrix:
     def solve(self, b, raw=False):
         res = []
         det = self.det()
-        retdict = {1 : [], 0 : "det A = 0, can't be solved."}
-        if det == 0: return retdict[int(raw)]
+        if det == 0: return {1 : [], 0 : "det A = 0, can't be solved."}[int(raw)]
         for i in range(1, self.rw + 1):
             d = self.copy()
             for j in range(1, self.cl + 1):
@@ -107,10 +151,9 @@ class Matrix:
             # d.show()
             # self.show()
             res.append(d.det() / det)
-        rs = ''
-        if raw:
-            return res
+        if raw: return res
         else:
+            rs = ''
             for i in range(len(res)):
                 rs += f'x{i + 1} = {res[i]} '
             return rs[:-1:]
