@@ -24,26 +24,37 @@ class Matrix:
         else: raise Exception('Can only add matrix to another matrix.')
     
     def __mul__(self, obj):
-        if isinstance(obj, int):
+        if isinstance(obj, int) or isinstance(obj, float):
             res = Matrix(self.rw, self.cl)
             for i in range(1, self.rw + 1):
                 for j in range(1, self.cl + 1):
                     res[i][j] = self[i][j] * obj
             return res
         elif isinstance(obj, Matrix):
-            if self.rw != obj.cl: raise Exception('Unmatched matrixes dimensions.')
+            if self.cl != obj.rw: raise Exception('Unmatched matrixes dimensions.')
+            ci = 1
+            cj = 1
             res = Matrix(self.rw, obj.cl)
-            t = []
-            for i in range(1, self.rw + 1):
-                for j in range(1, self.rw + 1):
-                    s = 0
-                    for k in range(1, self.cl + 1):
-                        print(i, j, self[i][k] * obj[k][j])
-                        s += self[i][k] * obj[k][j]
-                    res[i][j] = s
+            while ci < self.cl:
+                print(f'{ci=}, {cj=}')
+                s = 0
+                for i in range(1, self.cl + 1):
+                    s += self[ci][i] * obj[i][cj]
+                res[ci][cj] = s
+                cj += 1
+                if cj > obj.cl:
+                    cj = 1
+                    ci += 1
             return res
         raise TypeError('Can only multiply Matrix by int, or Matrix by Matrix.')
 
+    def _extend(self):
+        res = Matrix(self.rw + 1, self.cl + 1)
+        for i in range(1, self.rw + 1):
+            for j in range(1, self.cl + 1):
+                res[i][j] = self[i][j]
+        return res
+    
     def insert(self, val, r, c):
         self.__items__[r][c] = val
     
