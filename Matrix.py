@@ -36,7 +36,6 @@ class Matrix:
             cj = 1
             res = Matrix(self.rw, obj.cl)
             while ci < self.cl:
-                print(f'{ci=}, {cj=}')
                 s = 0
                 for i in range(1, self.cl + 1):
                     s += self[ci][i] * obj[i][cj]
